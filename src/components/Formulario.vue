@@ -24,3 +24,24 @@
         </div>
     </form>
 </template>
+
+<style>
+    @media (max-width: 1023px) {
+        form > .row{
+            display: block;
+        }
+
+        .col input {
+            width: 70%;
+            margin-bottom: 15px;
+        }
+
+        button {
+            margin-bottom: 30px;
+        }
+
+        div.col-md-2 {
+            width: 35%;
+        }
+    }
+</style>
