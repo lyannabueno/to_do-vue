@@ -2,62 +2,62 @@
 import { reactive } from 'vue';
 import Header from './components/Cabecalho.vue'
 import Form from './components/Formulario.vue'
-import To_do from './components/ListaTarefa.vue'
+import ToDo from './components/ListaTarefa.vue'
 
-  const estado = reactive({
-    filtro: 'todas',
+  const state = reactive({
+    filter: 'all',
 
-    tarefaTemp: '',
+    taskTemp: '',
 
-    tarefas: []
+    tasks: []
   })
 
-  const getTarefasPendentes = () => {
-    return estado.tarefas.filter(tarefa => !tarefa.finalizada)
+  const getPendingTasks = () => {
+    return state.tasks.filter(task => !task.completed)
   }
 
-  const getTarefasFinalizadas = () => {
-    return estado.tarefas.filter(tarefa => tarefa.finalizada)
+  const getCompletedTasks = () => {
+    return state.tasks.filter(task => task.completed)
   }
 
-  const getTarefasFiltardas = () => {
-    const { filtro } = estado
+  const getFilteredTasks = () => {
+    const { filter } = state
 
-    switch(filtro) {
-      case 'pendentes':
-        return getTarefasPendentes()
+    switch(filter) {
+      case 'pending':
+        return getPendingTasks()
 
-      case 'finalizadas':
-      return getTarefasFinalizadas()
+      case 'completed':
+        return getCompletedTasks()
 
       default: 
-        return estado.tarefas
+        return state.tasks
     }
   }
 
-  const trocaFiltroTemp = (evento) => {
-    estado.filtro = evento.target.value
+  const changeFilterTemp = (event) => {
+    state.filter = event.target.value
   }
 
-  const cadastraTarefa = () => {
-    const tarefaNova = {
-      titulo: estado.tarefaTemp,
-      finalizada: false
+  const addTask = () => {
+    const newTask = {
+      title: state.taskTemp,
+      completed: false
     }
 
-    estado.tarefas.push(tarefaNova)
-    estado.tarefaTemp = '' // limpa o campo de input após o cadastro
+    state.tasks.push(newTask)
+    state.taskTemp = '' // clears the input field after adding the task
   }
 
-  const editaTarefaTemp = (evento) => {
-    estado.tarefaTemp = evento.target.value
+  const editTaskTemp = (event) => {
+    state.taskTemp = event.target.value
   }
 </script>
 
 <template>
   <div class="container">
-    <Header :tarefas-pendentes="getTarefasPendentes().length"/>
-    <Form :trocar-filtro="trocaFiltroTemp" :tarefa-temp="estado.tarefaTemp" :edita-tarefa-temp="editaTarefaTemp" :cadastra-tarefa="cadastraTarefa"/>
-    <To_do :tarefas="getTarefasFiltardas()"/>
+    <Header :pending-tasks="getPendingTasks().length"/>
+    <Form :change-filter="changeFilterTemp" :task-temp="state.taskTemp" :edit-task-temp="editTaskTemp" :add-task="addTask"/>
+    <ToDo :tasks="getFilteredTasks()"/>
   </div>
 </template>

@@ -1,10 +1,10 @@
 <script setup>
-    const props = defineProps(['tarefasPendentes'])
+    const props = defineProps(['pendingTasks'])
 </script>
 
 <template>
     <header class="p-5 mb-4 mt-4 bg-light rounded-3">
-        <h1>Minhas Tarefas</h1>
-        <p>Você possui {{ props.tarefasPendentes }} tarefas pendentes</p>
+        <h1>My Tasks</h1>
+        <p>You have {{ props.pendingTasks }} pending tasks</p>
     </header>
 </template>
